@@ -1,16 +1,14 @@
-# This is a sample Python script.
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.types.web_app_info import WebAppInfo
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+bot = Bot('6002497072:AAGb2F-V7auEfNkVP_6GwQMIeJfAwB7CxqE')
 
+dp = Dispatcher(bot)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+@dp.message_handler(commands=['start'])
+async def start (message: types.Message):
+    markup = types.ReplyKeyboardMarkup()
+    markup.add(types.KeyboardButton("Open Menu", web_app=WebAppInfo(url='https://github.com/AKogut/telegramBotWeb')))
+    await message.answer('Hey, it is delivery sushi', reply_markup=markup)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+executor.start_polling(dp)
